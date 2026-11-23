@@ -55,5 +55,22 @@
     revealEls.forEach(function (el) { el.classList.add("visible"); });
   }
 
+  /* ---------- Footer year ---------- */
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  /* ---------- Back to top ---------- */
+  var backToTop = document.querySelector(".back-to-top");
+  if (backToTop) {
+    var onScrollTop = function () {
+      backToTop.classList.toggle("show", window.scrollY > 600);
+    };
+    window.addEventListener("scroll", onScrollTop, { passive: true });
+    onScrollTop();
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   // @@NEXT@@
 })();
