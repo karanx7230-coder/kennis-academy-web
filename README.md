@@ -23,13 +23,13 @@ assets/images/      → put REAL images here (see README inside)
 
 ## ✅ Before going live — replace placeholders
 
-Everything marked with a `🔄 REPLACE` or `✏️ UPDATE` comment in `index.html`:
+Placeholders are marked with short `🔄` / `✏️` comments in `index.html`:
 
-1. **Images** — all Unsplash/API placeholders → real photos
-   (⭐ hero needs `assets/images/building.png` — building **without background**).
-   See `assets/images/README.md`.
-2. **Logo** — header/footer monogram → `assets/images/logo.png`.
-3. **Director photo** — placeholder portrait → real Kuljeet Singh photo.
+1. **Visuals** — hero is a custom **2D SVG illustration**; photos load from the
+   Unsplash image API (WebP) and avatars from randomuser.me. Swap with real
+   photos anytime (`assets/images/`).
+2. **Logo** — header/footer monogram → real logo file.
+3. **Director visual** — 2D placeholder avatar → real Kuljeet Singh photo.
 4. **Reviews** — the 3 testimonials are **SAMPLES** → replace with real parent/student reviews.
 5. **Batch timings** — contact card + FAQ marked `✏️ UPDATE`.
 6. **Monthly fees** — add exact rates when ready (currently "affordable, call for details").
