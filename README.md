@@ -4,11 +4,11 @@ Mobile-first, trust-focused landing page for **Kennis Academy (Kennis Academy Ro
 
 > Learn, Grow, Succeed — Classes 1st–12th (CBSE · PSEB · ICSE) + Govt. Exam Coaching, Ropar, Punjab.
 
-**Design:** a lean, human, **typography-driven poster**. Warm paper + ink +
-marker-yellow + coral. Expressive Fraunces serif headlines, handwritten Caveat
-asides, marker highlights that draw in, hand-drawn doodles (circle, underline,
-arrow, sparkles, chai), a kinetic subject ticker and a rotated sticky note.
-No photo clutter — text does the talking. Respects `prefers-reduced-motion`.
+**Design:** a bold, minimal studio poster (two26.studio-inspired). Blush `#F8EEE8`
++ vivid orange `#FF5400`, oversized **Anton** condensed uppercase headlines, black
+capsule labels, **duotone-orange pictures** with scroll-scrubbed zoom, looping
+orange stroke animations, marquees and an intro loader. No supporting paragraphs —
+big statements only. Long scroll, mobile-first. Respects `prefers-reduced-motion`.
 
 ## Run it
 
