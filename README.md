@@ -4,13 +4,13 @@ Mobile-first, trust-focused landing page for **Kennis Academy (Kennis Academy Ro
 
 > Learn, Grow, Succeed — Classes 1st–12th (CBSE · PSEB · ICSE) + Govt. Exam Coaching, Ropar, Punjab.
 
-**Design:** refined editorial. Deep teal `#193C42`, warm ivory `#F4F1E8`, muted
-gold `#B87939`, sage `#DCE5DE`, charcoal `#293238`. Fraunces serif headlines +
-Inter body, generous whitespace, four distinct program entries, a prominent
-director feature, an honest "How we teach" approach section and a real
-**admission-enquiry form** that composes a WhatsApp message. Gentle scroll-zoom
-on photos, drawing-underline hovers, scroll progress bar. **No prices shown.**
-Long scroll, mobile-first. Respects `prefers-reduced-motion`.
+**Design:** agency-grade editorial. Deep teal `#193C42`, warm ivory `#F4F1E8`,
+muted gold `#B87939`, sage `#DCE5DE`, charcoal `#293238`. Confident Fraunces serif
++ Inter, a strong typographic hero, a manifesto statement, count-up facts, four
+distinct program entries, a prominent director feature, an honest "How we teach"
+section and a real **admission-enquiry form** (composes WhatsApp). Subtle,
+purposeful motion: parallax imagery, smooth reveals, drawing-underline hovers,
+scroll progress. **No prices shown.** Long scroll, mobile-first, reduced-motion safe.
 
 ## Run it
 

@@ -1,4 +1,4 @@
-/* Kennis Academy Ropar — editorial interactions (vanilla, zero deps) */
+/* Kennis Academy Ropar — agency-grade motion (vanilla, zero deps) */
 (function () {
   "use strict";
   var doc = document;
@@ -6,11 +6,11 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
-  /* ---------- year ---------- */
+  /* year */
   var y = doc.getElementById("year");
   if (y) y.textContent = String(new Date().getFullYear());
 
-  /* ---------- header + scroll progress ---------- */
+  /* header + scroll progress */
   var head = doc.querySelector(".head");
   var progress = doc.querySelector(".progress");
   function onScroll() {
@@ -23,7 +23,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- mobile menu ---------- */
+  /* mobile menu */
   var toggle = doc.querySelector(".nav-toggle");
   var nav = doc.getElementById("nav");
   function setMenu(open) {
@@ -40,14 +40,14 @@
     window.addEventListener("resize", function () { if (window.innerWidth > 860) setMenu(false); });
   }
 
-  /* ---------- hero line reveal ---------- */
+  /* hero line reveal */
   var heroTitle = doc.querySelector(".hero-title");
   if (heroTitle) {
     if (reduce) heroTitle.classList.add("in");
     else requestAnimationFrame(function () { requestAnimationFrame(function () { heroTitle.classList.add("in"); }); });
   }
 
-  /* ---------- reveals (IO + scroll fallback) ---------- */
+  /* reveals (IO + scroll fallback) */
   var els = [].slice.call(doc.querySelectorAll(".reveal"));
   function show(e) { e.classList.add("visible"); }
   if (reduce) {
@@ -72,10 +72,36 @@
     fb();
   }
 
-  /* ---------- gentle scroll-zoom on pictures ---------- */
-  var medias = [].slice.call(doc.querySelectorAll("[data-cine]")).map(function (w) {
-    var amp = parseFloat(w.getAttribute("data-amp")) || 0.1;
-    return { wrap: w, img: w.querySelector("img"), amp: amp, cur: 1 + amp, tgt: 1 + amp };
+  /* count-up facts */
+  var counts = [].slice.call(doc.querySelectorAll(".count"));
+  function runCount(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+    var suffix = el.getAttribute("data-suffix") || "";
+    if (reduce) { el.textContent = target + suffix; return; }
+    var start = null, dur = 1200;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = clamp((ts - start) / dur, 0, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (counts.length) {
+    if ("IntersectionObserver" in window && !reduce) {
+      var cio = new IntersectionObserver(function (en) {
+        en.forEach(function (e) { if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); } });
+      }, { threshold: 0.5 });
+      counts.forEach(function (c) { cio.observe(c); });
+    } else {
+      counts.forEach(runCount);
+    }
+  }
+
+  /* gentle parallax on imagery */
+  var medias = [].slice.call(doc.querySelectorAll("[data-parallax]")).map(function (w) {
+    return { wrap: w, img: w.querySelector("img"), range: parseFloat(w.getAttribute("data-range")) || 30, cur: 0, tgt: 0 };
   }).filter(function (m) { return m.img; });
   function targets() {
     var vh = window.innerHeight;
@@ -84,8 +110,7 @@
       var r = m.wrap.getBoundingClientRect();
       if (r.bottom < -240 || r.top > vh + 240) continue;
       var t = clamp((vh - r.top) / (vh + r.height), 0, 1);
-      var c = 1 - Math.abs(t - 0.5) * 2;
-      m.tgt = 1 + m.amp * (1 - c);
+      m.tgt = (t - 0.5) * m.range;
     }
   }
   var running = false;
@@ -93,11 +118,11 @@
     var d = 0;
     for (var i = 0; i < medias.length; i++) {
       var m = medias[i];
-      m.cur += (m.tgt - m.cur) * 0.12;
+      m.cur += (m.tgt - m.cur) * 0.1;
       d += Math.abs(m.tgt - m.cur);
-      m.img.style.transform = "scale(" + m.cur.toFixed(4) + ")";
+      m.img.style.transform = "translate3d(0," + m.cur.toFixed(2) + "px,0) scale(1.12)";
     }
-    if (d > 0.0006) requestAnimationFrame(loop); else running = false;
+    if (d > 0.05) requestAnimationFrame(loop); else running = false;
   }
   function wake() { targets(); if (!running) { running = true; requestAnimationFrame(loop); } }
   if (!reduce && medias.length) {
@@ -108,7 +133,7 @@
     medias.forEach(function (m) { m.img.style.transform = "none"; });
   }
 
-  /* ---------- program pre-select from enquiry links ---------- */
+  /* program pre-select */
   var programSelect = doc.getElementById("f-program");
   var nameInput = doc.getElementById("f-name");
   [].slice.call(doc.querySelectorAll("[data-program]")).forEach(function (link) {
@@ -119,13 +144,13 @@
         [].slice.call(programSelect.options).forEach(function (opt) {
           if (opt.text === want) { programSelect.value = opt.value || opt.text; matched = true; }
         });
-        if (!matched) programSelect.selectedIndex = programSelect.options.length - 1; // "Not sure yet"
+        if (!matched) programSelect.selectedIndex = programSelect.options.length - 1;
       }
       setTimeout(function () { if (nameInput) nameInput.focus({ preventScroll: true }); }, 450);
     });
   });
 
-  /* ---------- admission enquiry form -> WhatsApp ---------- */
+  /* enquiry form -> WhatsApp */
   var form = doc.getElementById("enquiry-form");
   var note = doc.getElementById("form-note");
   if (form) {
@@ -136,30 +161,18 @@
       var program = form.program.value;
       var message = form.message.value.trim();
       var ok = true;
-
-      form.name.classList.toggle("invalid", !name);
-      if (!name) ok = false;
-      var digits = phone.replace(/\D/g, "");
-      var phoneOk = digits.length >= 10;
-      form.phone.classList.toggle("invalid", !phoneOk);
-      if (!phoneOk) ok = false;
-
+      form.name.classList.toggle("invalid", !name); if (!name) ok = false;
+      var phoneOk = phone.replace(/\D/g, "").length >= 10;
+      form.phone.classList.toggle("invalid", !phoneOk); if (!phoneOk) ok = false;
       if (!ok) {
         if (note) { note.textContent = "Please add a name and a valid 10-digit phone number."; note.classList.add("error"); }
         (!name ? form.name : form.phone).focus();
         return;
       }
-
-      var text = "Admission enquiry — Kennis Academy\n\n" +
-        "Name: " + name + "\n" +
-        "Phone: " + phone + "\n" +
-        "Program: " + program +
-        (message ? "\nMessage: " + message : "");
-      var url = "https://wa.me/918872981296?text=" + encodeURIComponent(text);
-      window.open(url, "_blank", "noopener");
+      var text = "Admission enquiry — Kennis Academy\n\nName: " + name + "\nPhone: " + phone + "\nProgram: " + program + (message ? "\nMessage: " + message : "");
+      window.open("https://wa.me/918872981296?text=" + encodeURIComponent(text), "_blank", "noopener");
       if (note) { note.textContent = "Opening WhatsApp with your details…"; note.classList.remove("error"); }
     });
-
     ["input", "change"].forEach(function (evt) {
       form.addEventListener(evt, function (e) {
         if (e.target.classList) e.target.classList.remove("invalid");
