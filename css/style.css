@@ -581,4 +581,157 @@ input, textarea, select { font: inherit; }
   .mentor-art { margin-inline: 0; }
 }
 
+/* ==========================================================================
+   PROGRAMS
+   ========================================================================== */
+.programs-grid { display: grid; gap: 18px; }
+
+.program-card {
+  position: relative;
+  padding: 26px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.program-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--navy-800), var(--gold));
+}
+.program-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+
+.program-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.program-emoji {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--gold-soft);
+  font-size: 1.8rem;
+}
+
+.program-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 8px;
+}
+.program-card p { color: var(--muted); font-size: .95rem; flex-grow: 1; }
+
+.program-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: 16px 0 18px; }
+.program-chips .chip { font-size: .76rem; padding: 5px 11px; }
+
+.program-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: .92rem;
+  color: var(--whatsapp-dark);
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+.program-link .icon { width: 18px; height: 18px; }
+.program-link .icon:last-child { transition: transform .2s ease; }
+.program-link:hover .icon:last-child { transform: translateX(4px); }
+
+@media (min-width: 900px) {
+  .programs-grid { grid-template-columns: repeat(3, 1fr); gap: 22px; }
+}
+
+/* ==========================================================================
+   GOVT EXAM COACHING (featured navy panel)
+   ========================================================================== */
+.govt-panel {
+  position: relative;
+  border-radius: 26px;
+  padding: 34px 22px;
+  color: #fff;
+  background:
+    radial-gradient(560px 300px at 100% 0%, rgba(255, 194, 51, .16), transparent 60%),
+    linear-gradient(150deg, var(--navy-800), var(--navy-950));
+  overflow: hidden;
+  display: grid;
+  gap: 32px;
+}
+
+.eyebrow-gold {
+  background: rgba(255, 194, 51, .14);
+  border-color: rgba(255, 194, 51, .45);
+  color: var(--gold);
+}
+
+.govt-copy h2 {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 5.5vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.22;
+  margin-bottom: 12px;
+}
+.govt-copy > p { color: rgba(255, 255, 255, .8); font-size: .99rem; max-width: 56ch; }
+
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 24px 0;
+}
+.exam-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .13);
+}
+.exam-tile.span-2 { grid-column: span 2; }
+.exam-tile > span { font-size: 1.5rem; flex: none; }
+.exam-tile b { display: block; font-family: var(--font-head); font-size: .94rem; line-height: 1.3; }
+.exam-tile small { font-size: .74rem; color: rgba(255, 255, 255, .68); font-weight: 500; }
+
+.govt-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.govt-cta .btn { flex: 1 1 220px; }
+
+.govt-visual { position: relative; align-self: center; }
+.govt-photo {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(255, 255, 255, .16);
+  box-shadow: var(--shadow-lg);
+}
+.govt-photo img { width: 100%; height: 100%; object-fit: cover; }
+.govt-chip {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(6, 21, 48, .82);
+  border: 1px solid rgba(255, 255, 255, .22);
+  backdrop-filter: blur(6px);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+@media (min-width: 640px) {
+  .govt-cta .btn { flex: 0 1 auto; }
+}
+@media (min-width: 900px) {
+  .govt-panel { grid-template-columns: 1.1fr .9fr; gap: 44px; padding: 48px 44px; }
+}
+
 /* @@NEXT@@ */
