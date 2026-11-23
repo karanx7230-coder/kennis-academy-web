@@ -22,6 +22,7 @@ const files = [
   ["classroom.webp", U("1580582932707-520aed937b7b", 1200)],
   ["students.webp", U("1522202176988-66273c2fd55f", 1200)],
   ["study.webp", U("1456513080510-7bf3a84b82f8", 1200)],
+  ["succeed.webp", U("1564981797816-1043664bf78d", 1920)],
   ["review-1.jpg", "https://randomuser.me/api/portraits/women/65.jpg"],
   ["review-2.jpg", "https://randomuser.me/api/portraits/men/32.jpg"],
   ["review-3.jpg", "https://randomuser.me/api/portraits/women/44.jpg"],
