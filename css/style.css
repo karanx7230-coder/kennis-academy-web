@@ -514,4 +514,71 @@ input, textarea, select { font: inherit; }
   .hero-stats { grid-template-columns: repeat(4, 1fr); margin-top: 64px; }
 }
 
+/* ==========================================================================
+   MEET YOUR MENTOR
+   ========================================================================== */
+.section-white { background: var(--card); }
+
+.mentor-grid { display: grid; gap: 48px; align-items: center; }
+
+.mentor-art {
+  position: relative;
+  max-width: 360px;
+  width: 100%;
+  margin-inline: auto;
+  padding: 16px;
+  border-radius: 24px;
+  background: linear-gradient(160deg, #FFF9EA, #EAF1FB);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+}
+.mentor-art svg, .mentor-art img { width: 100%; height: auto; border-radius: 16px; }
+
+.mentor-plate {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: var(--navy-800);
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+}
+.mentor-plate strong { display: block; font-family: var(--font-head); font-size: .98rem; line-height: 1.3; }
+.mentor-plate small { font-size: .74rem; font-weight: 600; color: var(--gold); }
+
+.mentor-copy .section-head { margin-bottom: 18px; }
+.mentor-copy p { color: var(--muted); margin-bottom: 14px; }
+.mentor-copy p strong { color: var(--ink); }
+
+.qual-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.chip-gold {
+  background: var(--gold-soft);
+  border: 1px solid #F4DFA8;
+  color: var(--navy-800);
+  font-weight: 700;
+}
+
+.mentor-points { margin: 18px 0 22px; display: grid; gap: 10px; }
+.mentor-points li { color: var(--ink); font-size: .96rem; }
+
+.mentor-quote {
+  padding: 16px 20px;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--bg);
+  color: var(--navy-800);
+  font-weight: 600;
+  font-style: italic;
+  font-size: .98rem;
+}
+
+@media (min-width: 900px) {
+  .mentor-grid { grid-template-columns: 380px 1fr; gap: 64px; }
+  .mentor-art { margin-inline: 0; }
+}
+
 /* @@NEXT@@ */
