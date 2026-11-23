@@ -4,6 +4,11 @@ Mobile-first, trust-focused landing page for **Kennis Academy (Kennis Academy Ro
 
 > Learn, Grow, Succeed — Classes 1st–12th (CBSE · PSEB · ICSE) + Govt. Exam Coaching, Ropar, Punjab.
 
+**Design:** cinematic dark-navy + gold editorial theme. Real WebP photos with
+scroll-scrubbed zoom-in/zoom-out motion (After-Effects-style dolly), a full-screen
+Ken-Burns hero, film-grain texture and staggered reveals. No glows — motion carries
+the drama. Respects `prefers-reduced-motion`.
+
 ## Run it
 
 No build step. Either:
@@ -25,11 +30,10 @@ assets/images/      → put REAL images here (see README inside)
 
 Placeholders are marked with short `🔄` / `✏️` comments in `index.html`:
 
-1. **Visuals** — hero is a custom **2D SVG illustration**; photos load from the
-   Unsplash image API (WebP) and avatars from randomuser.me. Swap with real
-   photos anytime (`assets/images/`).
+1. **Visuals** — photos load live from the Unsplash image API (**WebP**) and
+   avatars from randomuser.me. Swap with real photos anytime (`assets/images/`).
 2. **Logo** — header/footer monogram → real logo file.
-3. **Director visual** — 2D placeholder avatar → real Kuljeet Singh photo.
+3. **Director photo** — placeholder portrait → real Kuljeet Singh photo.
 4. **Reviews** — the 3 testimonials are **SAMPLES** → replace with real parent/student reviews.
 5. **Batch timings** — contact card + FAQ marked `✏️ UPDATE`.
 6. **Monthly fees** — add exact rates when ready (currently "affordable, call for details").
