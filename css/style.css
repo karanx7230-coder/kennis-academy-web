@@ -734,4 +734,94 @@ input, textarea, select { font: inherit; }
   .govt-panel { grid-template-columns: 1.1fr .9fr; gap: 44px; padding: 48px 44px; }
 }
 
+/* ==========================================================================
+   HOME TUITION
+   ========================================================================== */
+.home-tuition {
+  background:
+    radial-gradient(600px 300px at 100% 0%, rgba(255, 194, 51, .25), transparent 60%),
+    linear-gradient(160deg, #FFF9EA, #FFF3D6);
+}
+
+.ht-grid { display: grid; gap: 40px; align-items: center; }
+.ht-copy .section-head { margin-bottom: 20px; }
+.ht-copy .sub strong { color: var(--navy-800); }
+
+.price-tag {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: var(--navy-800);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 20px;
+}
+.price-tag b {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.7rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.price-tag span { color: #fff; font-weight: 600; font-size: .95rem; }
+.price-tag small { flex-basis: 100%; color: rgba(255, 255, 255, .65); font-size: .72rem; font-weight: 500; }
+
+.ht-points { display: grid; gap: 10px; margin-bottom: 24px; }
+.ht-points li { color: var(--ink); font-size: .96rem; }
+
+.ht-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.ht-cta .btn { flex: 1 1 200px; }
+
+.ht-art { max-width: 440px; margin-inline: auto; width: 100%; }
+.ht-art svg { width: 100%; height: auto; }
+
+@media (min-width: 640px) {
+  .ht-cta .btn { flex: 0 1 auto; }
+}
+@media (min-width: 900px) {
+  .ht-grid { grid-template-columns: 1.05fr .95fr; gap: 56px; }
+}
+
+/* ==========================================================================
+   WHY US
+   ========================================================================== */
+.why-grid { display: grid; gap: 14px; }
+
+.why-card {
+  padding: 22px 20px;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 4px 16px;
+  align-items: start;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.why-emoji {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--gold-soft);
+  font-size: 1.6rem;
+}
+.why-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  line-height: 1.35;
+}
+.why-card p { color: var(--muted); font-size: .9rem; }
+
+@media (min-width: 640px) {
+  .why-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (min-width: 1000px) {
+  .why-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 /* @@NEXT@@ */
