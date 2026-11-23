@@ -61,18 +61,14 @@ a { color: inherit; text-decoration: none; }
 .pill-lg { font-size: .95rem; padding: 14px 24px; min-height: 52px; }
 a.pill:hover { transform: translateY(-3px) rotate(-1deg); }
 
-/* ---------- duotone orange pictures ---------- */
-.pic { position: relative; overflow: hidden; background: var(--orange); border-radius: 6px; }
+/* ---------- pictures (full colour, scroll-zoom) ---------- */
+.pic { position: relative; overflow: hidden; background: var(--blush-2); border-radius: 6px; }
 .pic img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(1) contrast(1.08) brightness(1.03);
-  mix-blend-mode: multiply;
   transform: scale(1.16);
   transform-origin: center;
   will-change: transform;
-  transition: filter .6s var(--ease);
 }
-.pic:hover img { filter: none; mix-blend-mode: normal; }
 
 /* ---------- looping orange strokes ---------- */
 .loop { position: absolute; pointer-events: none; overflow: visible; z-index: 0; }
@@ -211,14 +207,6 @@ a.pill:hover { transform: translateY(-3px) rotate(-1deg); }
 .foot-base { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between; padding: 20px var(--pad); font-weight: 500; font-size: .85rem; }
 .foot-top { font-weight: 700; }
 .foot-top:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-/* ==========================================================================
-   MOBILE STICKY
-   ========================================================================== */
-.sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(248,238,232,.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 2px solid rgba(31,27,24,.12); }
-.sticky .pill { justify-content: center; }
-@media (max-width: 899px) { body { padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px)); } }
-@media (min-width: 900px) { .sticky { display: none; } }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
