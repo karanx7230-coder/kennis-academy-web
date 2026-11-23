@@ -4,11 +4,13 @@ Mobile-first, trust-focused landing page for **Kennis Academy (Kennis Academy Ro
 
 > Learn, Grow, Succeed — Classes 1st–12th (CBSE · PSEB · ICSE) + Govt. Exam Coaching, Ropar, Punjab.
 
-**Design:** a bold, minimal studio poster (two26.studio-inspired). Blush `#F8EEE8`
-+ vivid orange `#FF5400`, oversized **Anton** condensed uppercase headlines, black
-capsule labels, **duotone-orange pictures** with scroll-scrubbed zoom, looping
-orange stroke animations, marquees and an intro loader. No supporting paragraphs —
-big statements only. Long scroll, mobile-first. Respects `prefers-reduced-motion`.
+**Design:** refined editorial. Deep teal `#193C42`, warm ivory `#F4F1E8`, muted
+gold `#B87939`, sage `#DCE5DE`, charcoal `#293238`. Fraunces serif headlines +
+Inter body, generous whitespace, four distinct program entries, a prominent
+director feature, an honest "How we teach" approach section and a real
+**admission-enquiry form** that composes a WhatsApp message. Gentle scroll-zoom
+on photos, drawing-underline hovers, scroll progress bar. **No prices shown.**
+Long scroll, mobile-first. Respects `prefers-reduced-motion`.
 
 ## Run it
 
@@ -20,27 +22,26 @@ No build step. Either:
 ## Structure
 
 ```
-index.html          → full page (all sections, SEO meta, JSON-LD)
-css/style.css       → mobile-first design system + all section styles
-js/main.js          → menu, scroll effects, reveal animations, back-to-top
-assets/favicon.svg  → placeholder monogram (replace with real logo)
-assets/images/      → put REAL images here (see README inside)
+index.html          → full page (hero, programs, approach, director, enquiry form, footer)
+css/style.css       → editorial design system + all section styles
+js/main.js          → menu, reveals, scroll-zoom, progress, enquiry form → WhatsApp
+tools/dev-server.cjs→ zero-dependency local preview server
+tools/fetch-placeholders.mjs → re-download placeholder photos
+assets/images/      → local WebP photos (swap with real ones anytime)
 ```
 
-## ✅ Before going live — replace placeholders
+## ✅ Before going live
 
-Placeholders are marked with short `🔄` / `✏️` comments in `index.html`:
+1. **Photos** — local placeholder WebP images in `assets/images/`. Swap with real
+   academy photos (hero, programs, director) anytime; re-fetch via the tools script.
+2. **Director photo** — placeholder portrait → real Kuljeet Singh photo.
+3. **Logo / favicon** — `assets/favicon.svg` monogram → real logo.
+4. **Enquiry form** — currently opens WhatsApp to **88729-81296** with the details
+   pre-filled. Change the number in `js/main.js` if needed (or wire a form backend).
+5. **Google Map link** — points at Ramleela Ground → replace with the exact pin.
+6. **Instagram** — linked; add Facebook/X if you have them.
 
-1. **Visuals** — photos load live from the Unsplash image API (**WebP**) and
-   avatars from randomuser.me. Swap with real photos anytime (`assets/images/`).
-2. **Logo** — header/footer monogram → real logo file.
-3. **Director photo** — placeholder portrait → real Kuljeet Singh photo.
-4. **Reviews** — the 3 testimonials are **SAMPLES** → replace with real parent/student reviews.
-5. **Batch timings** — contact card + FAQ marked `✏️ UPDATE`.
-6. **Monthly fees** — add exact rates when ready (currently "affordable, call for details").
-7. **Facebook / Twitter links** — currently `#` → paste real page URLs.
-8. **Google Map** — embed points at Ramleela Ground → replace with the academy's exact pin.
-9. **Admission session badge** in hero — update the session year as needed.
+> No prices are displayed anywhere by design.
 
 ## Deploy
 

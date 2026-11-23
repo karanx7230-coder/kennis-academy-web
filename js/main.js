@@ -1,4 +1,4 @@
-/* Kennis Academy Ropar — studio motion (vanilla, zero deps) */
+/* Kennis Academy Ropar — editorial interactions (vanilla, zero deps) */
 (function () {
   "use strict";
   var doc = document;
@@ -6,32 +6,46 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
-  /* ---------- intro loader + hero line reveal ---------- */
-  var loader = doc.querySelector(".loader");
-  var heroMega = doc.querySelector(".hero-mega");
-  function start() {
-    if (loader) loader.classList.add("done");
-    if (heroMega) heroMega.classList.add("in");
-  }
-  if (reduce) {
-    start();
-  } else {
-    var started = false;
-    function go() { if (started) return; started = true; setTimeout(start, 480); }
-    window.addEventListener("load", go);
-    setTimeout(go, 2600); // safety net
-    if (doc.readyState === "complete") go();
-  }
-
-  /* ---------- header ---------- */
-  var head = doc.querySelector(".head");
-  function hs() { if (head) head.classList.toggle("scrolled", window.scrollY > 30); }
-  window.addEventListener("scroll", hs, { passive: true });
-  hs();
-
   /* ---------- year ---------- */
   var y = doc.getElementById("year");
   if (y) y.textContent = String(new Date().getFullYear());
+
+  /* ---------- header + scroll progress ---------- */
+  var head = doc.querySelector(".head");
+  var progress = doc.querySelector(".progress");
+  function onScroll() {
+    if (head) head.classList.toggle("scrolled", window.scrollY > 24);
+    if (progress) {
+      var max = doc.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (max > 0 ? clamp(window.scrollY / max, 0, 1) : 0) + ")";
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- mobile menu ---------- */
+  var toggle = doc.querySelector(".nav-toggle");
+  var nav = doc.getElementById("nav");
+  function setMenu(open) {
+    if (!toggle || !nav) return;
+    nav.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    doc.body.classList.toggle("menu-open", open);
+  }
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () { setMenu(!nav.classList.contains("open")); });
+    nav.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+    doc.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
+    window.addEventListener("resize", function () { if (window.innerWidth > 860) setMenu(false); });
+  }
+
+  /* ---------- hero line reveal ---------- */
+  var heroTitle = doc.querySelector(".hero-title");
+  if (heroTitle) {
+    if (reduce) heroTitle.classList.add("in");
+    else requestAnimationFrame(function () { requestAnimationFrame(function () { heroTitle.classList.add("in"); }); });
+  }
 
   /* ---------- reveals (IO + scroll fallback) ---------- */
   var els = [].slice.call(doc.querySelectorAll(".reveal"));
@@ -58,33 +72,20 @@
     fb();
   }
 
-  /* ---------- looping strokes draw-in ---------- */
-  var loops = [].slice.call(doc.querySelectorAll(".loop"));
-  if (reduce || !("IntersectionObserver" in window)) {
-    loops.forEach(function (l) { l.classList.add("drawn"); });
-  } else {
-    var lio = new IntersectionObserver(function (en) {
-      en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("drawn"); lio.unobserve(e.target); } });
-    }, { threshold: 0.2 });
-    loops.forEach(function (l) { lio.observe(l); });
-  }
-
-  /* ---------- scroll-scrubbed picture zoom ---------- */
+  /* ---------- gentle scroll-zoom on pictures ---------- */
   var medias = [].slice.call(doc.querySelectorAll("[data-cine]")).map(function (w) {
-    var amp = parseFloat(w.getAttribute("data-amp")) || 0.16;
-    return { wrap: w, img: w.querySelector("img"), amp: amp, cur: { s: 1 + amp, y: 0 }, tgt: { s: 1 + amp, y: 0 } };
+    var amp = parseFloat(w.getAttribute("data-amp")) || 0.1;
+    return { wrap: w, img: w.querySelector("img"), amp: amp, cur: 1 + amp, tgt: 1 + amp };
   }).filter(function (m) { return m.img; });
-
   function targets() {
     var vh = window.innerHeight;
     for (var i = 0; i < medias.length; i++) {
       var m = medias[i];
       var r = m.wrap.getBoundingClientRect();
-      if (r.bottom < -260 || r.top > vh + 260) continue;
+      if (r.bottom < -240 || r.top > vh + 240) continue;
       var t = clamp((vh - r.top) / (vh + r.height), 0, 1);
       var c = 1 - Math.abs(t - 0.5) * 2;
-      m.tgt.s = 1 + m.amp * (1 - c);
-      m.tgt.y = (t - 0.5) * 26;
+      m.tgt = 1 + m.amp * (1 - c);
     }
   }
   var running = false;
@@ -92,23 +93,78 @@
     var d = 0;
     for (var i = 0; i < medias.length; i++) {
       var m = medias[i];
-      m.cur.s += (m.tgt.s - m.cur.s) * 0.12;
-      m.cur.y += (m.tgt.y - m.cur.y) * 0.12;
-      d += Math.abs(m.tgt.s - m.cur.s) + Math.abs(m.tgt.y - m.cur.y) * 0.01;
-      m.img.style.transform = "translate3d(0," + m.cur.y.toFixed(2) + "px,0) scale(" + m.cur.s.toFixed(4) + ")";
+      m.cur += (m.tgt - m.cur) * 0.12;
+      d += Math.abs(m.tgt - m.cur);
+      m.img.style.transform = "scale(" + m.cur.toFixed(4) + ")";
     }
-    if (d > 0.0008) requestAnimationFrame(loop);
-    else running = false;
+    if (d > 0.0006) requestAnimationFrame(loop); else running = false;
   }
   function wake() { targets(); if (!running) { running = true; requestAnimationFrame(loop); } }
-
   if (!reduce && medias.length) {
     window.addEventListener("scroll", wake, { passive: true });
     window.addEventListener("resize", wake);
-    targets();
-    running = true;
-    requestAnimationFrame(loop);
+    targets(); running = true; requestAnimationFrame(loop);
   } else {
     medias.forEach(function (m) { m.img.style.transform = "none"; });
+  }
+
+  /* ---------- program pre-select from enquiry links ---------- */
+  var programSelect = doc.getElementById("f-program");
+  var nameInput = doc.getElementById("f-name");
+  [].slice.call(doc.querySelectorAll("[data-program]")).forEach(function (link) {
+    link.addEventListener("click", function () {
+      var want = link.getAttribute("data-program");
+      if (programSelect) {
+        var matched = false;
+        [].slice.call(programSelect.options).forEach(function (opt) {
+          if (opt.text === want) { programSelect.value = opt.value || opt.text; matched = true; }
+        });
+        if (!matched) programSelect.selectedIndex = programSelect.options.length - 1; // "Not sure yet"
+      }
+      setTimeout(function () { if (nameInput) nameInput.focus({ preventScroll: true }); }, 450);
+    });
+  });
+
+  /* ---------- admission enquiry form -> WhatsApp ---------- */
+  var form = doc.getElementById("enquiry-form");
+  var note = doc.getElementById("form-note");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = form.name.value.trim();
+      var phone = form.phone.value.trim();
+      var program = form.program.value;
+      var message = form.message.value.trim();
+      var ok = true;
+
+      form.name.classList.toggle("invalid", !name);
+      if (!name) ok = false;
+      var digits = phone.replace(/\D/g, "");
+      var phoneOk = digits.length >= 10;
+      form.phone.classList.toggle("invalid", !phoneOk);
+      if (!phoneOk) ok = false;
+
+      if (!ok) {
+        if (note) { note.textContent = "Please add a name and a valid 10-digit phone number."; note.classList.add("error"); }
+        (!name ? form.name : form.phone).focus();
+        return;
+      }
+
+      var text = "Admission enquiry — Kennis Academy\n\n" +
+        "Name: " + name + "\n" +
+        "Phone: " + phone + "\n" +
+        "Program: " + program +
+        (message ? "\nMessage: " + message : "");
+      var url = "https://wa.me/918872981296?text=" + encodeURIComponent(text);
+      window.open(url, "_blank", "noopener");
+      if (note) { note.textContent = "Opening WhatsApp with your details…"; note.classList.remove("error"); }
+    });
+
+    ["input", "change"].forEach(function (evt) {
+      form.addEventListener(evt, function (e) {
+        if (e.target.classList) e.target.classList.remove("invalid");
+        if (note && note.classList.contains("error")) { note.textContent = "Opens WhatsApp with your details pre-filled."; note.classList.remove("error"); }
+      });
+    });
   }
 })();
