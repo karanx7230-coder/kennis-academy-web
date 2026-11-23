@@ -4,10 +4,11 @@ Mobile-first, trust-focused landing page for **Kennis Academy (Kennis Academy Ro
 
 > Learn, Grow, Succeed — Classes 1st–12th (CBSE · PSEB · ICSE) + Govt. Exam Coaching, Ropar, Punjab.
 
-**Design:** cinematic dark-navy + gold editorial theme. Real WebP photos with
-scroll-scrubbed zoom-in/zoom-out motion (After-Effects-style dolly), a full-screen
-Ken-Burns hero, film-grain texture and staggered reveals. No glows — motion carries
-the drama. Respects `prefers-reduced-motion`.
+**Design:** a lean, human, **typography-driven poster**. Warm paper + ink +
+marker-yellow + coral. Expressive Fraunces serif headlines, handwritten Caveat
+asides, marker highlights that draw in, hand-drawn doodles (circle, underline,
+arrow, sparkles, chai), a kinetic subject ticker and a rotated sticky note.
+No photo clutter — text does the talking. Respects `prefers-reduced-motion`.
 
 ## Run it
 
